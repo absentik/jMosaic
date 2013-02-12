@@ -1,5 +1,5 @@
 /*
- * jQuery jMosaic plugin 0.0.3 
+ * jQuery jMosaic plugin 0.0.4 
  * 
  * Author: Seleznev Alexander (ABSENT) 
  * Email: absenteg@gmail.com 
