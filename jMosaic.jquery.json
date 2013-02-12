@@ -1,0 +1,31 @@
+{
+    "name": "jMosaic",
+    "title": "jQuery jMosaic",
+    "description": "jQuery plugin for align elements as a mosaic.",
+    "keywords": [
+        "mosaic",
+        "jMosaic",
+        "images",
+        "elements",
+        "align",
+        "responsive"
+    ],
+    "version": "0.0.3",
+    "author": {
+        "name": "Seleznev Alexander",
+        "email": "absenteg@gmail.com",
+        "url": "http://whoisabsent.ru"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php "
+        }
+    ],
+    "homepage": "https://github.com/absentik/jMosaic",
+    "docs": "https://github.com/absentik/jMosaic/wiki",
+    "bugs": "https://github.com/absentik/jMosaic/issues",
+    "dependencies": {
+        "jquery": ">=1.8"
+    }
+}

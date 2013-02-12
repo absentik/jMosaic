@@ -1,5 +1,5 @@
 /*
- * jQuery jMosaic plugin 1.0.2 
+ * jQuery jMosaic plugin 0.0.3 
  * 
  * Author: Seleznev Alexander (ABSENT) 
  * Email: absenteg@gmail.com 
@@ -63,7 +63,7 @@
 		
 		function stretchingRow(selector, className, margin, classWidth) {
 			var classHeight = selector.find(className).outerHeight(true);
-			var requiredWidth = selector.width() - 1; /* scrollbar fix */
+			var requiredWidth = selector.width() - 1; /* scrollbar fix (for relative selector width) */
 			var requiredHeight = 0;
 			var resultWidth = 0;
 			var lastElementWidth = 0;
