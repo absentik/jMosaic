@@ -6,9 +6,12 @@
         "mosaic",
         "jMosaic",
         "images",
+        "image",
         "elements",
+        "element",
         "align",
-        "responsive"
+        "responsive",
+        "effect"
     ],
     "version": "0.0.3",
     "author": {
