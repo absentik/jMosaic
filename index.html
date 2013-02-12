@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="author" content="Absent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>jMosaic - jQuery plugin for align elements</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="js/jquery.jMosaic.min.js"></script>
+	<link rel="stylesheet" href="css/jquery.jMosaic.css"/>
+	
+	<style type="text/css">
+		body, html {padding: 0px; margin: 0px;}
+		a {color: #3366CC;}
+		.wrapper {width:900px; margin: 0 auto; font: normal normal 400 100%/1.5em georgia, serif; color: #222;}
+		.wrapper h1 {font: normal 600%/100% georgia, serif; text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); margin: 0 0 5px 0; text-align: center;}
+		.wrapper h2 {font: normal 200%/100% georgia, serif; text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); margin: 0 0 5px 0;}
+		.wrapper hr {border: none; border-top: 1px solid #ddd;}
+		.head p {font: normal 145%/1em georgia, serif; text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); text-align: center;}
+		.buttons a {display: inline-block;  background: #ddd; color: #111; width: 39.5%; margin: 0 5%; border-radius: 3px; text-align: center; line-height: 2.6em; text-decoration: none;}
+		.buttons a:hover {background: #3366CC; color: #fff;}
+		.buttons { clear: both; margin: 5px 0px 20px 0px; }
+		.wrapper pre {font: normal 87.5%/1.2em monospace, sans-serif; padding: 15px 30px 0px 30px; margin: 0; background: #eee; border-radius: 3px; display: block; overflow: auto;}
+		
+		.pictures {margin: 0px auto; width: 870px; padding: 0;}
+		.blocks {margin: 0px auto; width: 70%; padding: 0;}
+    </style>
+	
+    <script type="text/javascript">
+		//For blocks or images of size, you can use $(document).ready
+		$(document).ready(function() {
+			$('.blocks').jMosaic({items_type: "li", margin: 0});
+		});
+		
+		//If this image without attribute WIDTH or HEIGH, you can use $(window).load
+		$(window).load(function() {
+            $('.pictures').jMosaic({min_row_height: 150, margin: 3, is_first_big: true});
+        });
+		
+		//You can update on $(window).resize
+		$(window).resize(function() {
+			//$('.pictures').jMosaic({min_row_height: 150, margin: 3, is_first_big: true});
+			//$('.blocks').jMosaic({items_type: "li", margin: 0});
+		});
+    </script>
+	
+</head>
+<body>
+	<div class="wrapper">
+		<div class="head">
+			<h1>jMosaic</h1>
+			<p>jQuery plugin for align elements</p>
+			<div class="buttons">
+				<a href="#">Download</a>
+				<a href="#">Github Page</a>
+			</div>
+		</div>
+		<br>
+		<h2>About</h2>
+		<p>The plugin is designed to display items as a mosaic. The proportions of the elements do not change. As elements include the following: img, div, li etc.</p>
+		<br>
+		<h2>Usage</h2>
+		<p>jMosaic plugin uses the jQuery JavaScript library, only. So, include just these two javascript files in your header.</p>
+		<pre>
+&lt;script src="js/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="js/jquery.jMosaic.js">&lt;/script&gt;
+		</pre>
+		<br>
+		<p>Include the CSS file responsible to style the jMosaic plugin.</p>
+		<pre>
+&lt;link rel="stylesheet" href="css/jquery.jMosaic.css"/&gt;
+		</pre>
+		<br>
+		<p>Select a block which contains the necessary elements.</p>
+		<pre>
+&lt;div class="pictures"&gt;
+	&lt;img src="img/one.jpg" width="267" height="400"/&gt;
+	&lt;img src="img/two.jpg" width="500" height="350"/&gt;
+	. . .
+	&lt;img src="img/last.jpg" width="400" height="300"/&gt;
+&lt;/div&gt;	
+		</pre>
+		<br>
+		<p>After it, call the jQuery jMosaic plugin. </p>
+		<pre>
+$('.pictures').jMosaic();	
+		</pre>			
+		<br>
+		<p>For blocks or images of size, you can use <b>$(document).ready()</b>.</p>
+		<p>If this image without attribute "width" or "heigh", you can use <b>$(window).load()</b>.</p>
+		<p>You can update on <b>$(window).resize()</b>.</p>
+		
+		<p>As options can be passed:</p>
+		<ul>
+			<li><b>items_type</b> : Type of elements in the selector <i>(Default: img)</i>;</li>
+			<li><b>min_row_height</b> : Minimal row height <i>(Default: 150)</i>;</li>
+			<li><b>margin</b> : Space between elements <i>(Default: 0)</i>;</li>
+			<li><b>is_first_big</b> : First row - largest <i>(Default: false)</i>.</li>
+		</ul>
+		<pre>
+$('.pictures').jMosaic({items_type: "img", min_row_height: 200, margin: 3, is_first_big: true});
+		</pre>	
+		<br>
+		<br>
+		<h2>Example (pictures & fixed width):</h2>
+		<div class="pictures" >
+			<img src="img/pics-001.jpg" width="700" height="446"/>
+			<img src="img/pics-002.jpg" width="700" height="448"/>
+			<img src="img/pics-003.jpg" width="640" height="896"/>
+			<img src="img/pics-004.jpg" width="700" height="551"/>
+			<img src="img/pics-005.jpg" width="700" height="438"/>
+			<img src="img/pics-006.jpg" width="700" height="467"/>
+			<img src="img/pics-007.jpg" width="600" height="573"/>
+			<img src="img/pics-008.jpg" width="500" height="669"/>
+			<img src="img/pics-009.jpg" width="460" height="1635"/>
+			<img src="img/pics-010.jpg" width="400" height="600"/>
+			<img src="img/pics-011.jpg" width="602" height="600"/>
+			<img src="img/pics-012.jpg" width="670" height="544"/>
+			<img src="img/pics-013.jpg" width="670" height="503"/>
+		</div>
+		<br>
+		<h2>Example (blocks & relative width):</h2>
+		<ul class="blocks">
+			<li style="width: 250px; height: 400px; background: #ff0000; list-style: none;"></li>
+			<li style="width: 250px; height: 200px; background: #ffff00; list-style: none;"></li>
+			<li style="width: 450px; height: 235px; background: #000000; list-style: none;"></li>
+			<li style="width: 550px; height: 500px; background: #00ff00; list-style: none;"></li>
+			<li style="width: 700px; height: 300px; background: #00ffff; list-style: none;"></li>
+			<li style="width: 213px; height: 458px; background: #ff00ff; list-style: none;"></li>
+			<li style="width: 710px; height: 170px; background: #aa77cc; list-style: none;"></li>
+			<li style="width: 350px; height: 350px; background: #bb1100; list-style: none;"></li>
+			<li style="width: 250px; height: 400px; background: #ff0000; list-style: none;"></li>
+		</ul>
+		<hr>
+		<p><a href="http://whoisabsent.ru" title="Created by" target="_blank">ABSENT</a>, 2013</p>
+	</div>
+</body>
+</html>
