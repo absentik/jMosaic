@@ -11,9 +11,10 @@
         "element",
         "align",
         "responsive",
-        "effect"
+        "effect",
+        "gallery"
     ],
-    "version": "0.0.4",
+    "version": "0.0.5",
     "author": {
         "name": "Seleznev Alexander",
         "email": "absenteg@gmail.com",
