@@ -11,7 +11,8 @@
         "element",
         "align",
         "responsive",
-        "effect"
+        "effect",
+        "gallery"
     ],
     "version": "0.0.5",
     "author": {
