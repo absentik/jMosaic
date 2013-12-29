@@ -5,6 +5,7 @@ jMosaic
 The plugin is designed to display items as a mosaic. 
 
 The proportions of the elements do not change. As elements include the following: img, div, li etc.
+![Demo](http://u.pikucha.ru/iafnK/345.jpeg)
 
 
 ## USAGE
