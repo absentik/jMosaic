@@ -1,5 +1,6 @@
 /*
- * jQuery jMosaic plugin 0.0.7 
+ * jQuery jMosaic plugin 0.1.0 
+ * https://github.com/absentik/jMosaic
  * 
  * Author: Seleznev Alexander (ABSENT) 
  * Email: absenteg@gmail.com 
@@ -9,113 +10,125 @@
  * http://www.opensource.org/licenses/mit-license.php 
  */
 
-(function($){
-	
-	var methods = {
-		init : function(options) { 
-			var settings = $.extend({
-				items_type: "img", // Type of elements in the selector 
-				min_row_height: 150,  // Minimal row height 
-				margin: 0, // Space between elements 
-				is_first_big: false // First row - largest 
-			}, options);
-			
-			return this.each(function(){
-				start($(this), settings.items_type, settings.min_row_height, settings.margin, settings.is_first_big);
-			});
-		},
-		//Clean up selector
-		clear : function() { 
-			return this.each(function(){
-				clear($(this));
-			});
-		}
-	};
-	
-	$.fn.jMosaic = function(method) {
-		if (methods[method]) {
-			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-		} else if (typeof method === 'object' || !method) {
-			return methods.init.apply(this, arguments);
-		} else {
-			$.error('Method "' +  method + '" does not exist on jMosaic.');
-		}
-	};
-	
-	
-	
-	function start(selector, items_type, min_row_height, margin, is_first_big) {
-		var numRow = 0;
+;(function($, window, document, undefined){
+
+	var pluginName = "jMosaic";
+	var defaults = {
+		items_type: "img", // Type of elements in the selector 
+		min_row_height: 150,  // Minimal row height 
+		margin: 0, // Space between elements 
+		is_first_big: false // First row - largest 
+	}
+
+	function jMosaic(element, options) {
+		this.element = element;
+		this._defaults = defaults;
+		this._name = pluginName;
+		this.options = $.extend({}, defaults, options);
+		this.action = typeof options === "string" ? options : "default";
+		
+		this.init();
+	}
+
+	jMosaic.prototype.start = function () {
+		var it = this;
+		var numRow = 1;
 		var classWidth = 0;
-		var selectorLength = selector.find(items_type).length;
+		var selectorLength = $(it.element).find(it.options.items_type).length;
 		
-		if (is_first_big) reverseItems(selector, selector.find(items_type));
-		selector.addClass("jMosaic-selector");
+		if (it.options.is_first_big) {
+			it.reverseItems();
+		}
+
+		$(it.element).addClass("jMosaic-selector");
 		
-		selector.find(items_type).each(function(indx) { 
+		$(it.element).find(it.options.items_type).each(function(i) { 
 			$(this).addClass("jMosaic-item");
-			var newwidth = 	itemNewWidth($(this), min_row_height);
-			$(this).removeAttr("width").removeAttr("height").css({"width": newwidth+"px", "height": min_row_height+"px", "margin": margin+"px"});		
-			if (indx == 0) {
+			var newwidth = 	it.itemNewWidth(this, it.options.min_row_height);
+			$(this).removeAttr("width").removeAttr("height").css({"width": newwidth+"px", "height": it.options.min_row_height+"px", "margin": it.options.margin+"px"});		
+			if (i == 0 || $(this).position().top == $(this).prev().position().top) {
 				classWidth += $(this).outerWidth(true);
-				numRow++;
 			}
-			else if ($(this).position().top != $(this).prev().position().top) {
-				stretchingRow(selector, ".jMosaic-row_" + numRow, margin, classWidth);
+			else {
+				it.stretchingRow(".jMosaic-row_" + numRow, classWidth);
 				classWidth = $(this).outerWidth(true);
 				numRow++;
 			}
-			else {
-				classWidth += $(this).outerWidth(true);
-			}
-			$(this).addClass("jMosaic-row_" + numRow);	
-			if (indx == selectorLength - 1) {
-				stretchingRow(selector, ".jMosaic-row_" + numRow, margin, classWidth);	
+			$(this).addClass("jMosaic-row_" + numRow);
+			if (i == selectorLength - 1) {
+				it.stretchingRow(".jMosaic-row_" + numRow, classWidth);	
 			}
 		});
 		
-		if (is_first_big) reverseItems(selector, selector.find(items_type));
-		selector.append("<div style='clear:both;'></div>");
-	}
-		
-	function stretchingRow(selector, className, margin, classWidth) {
-		var classHeight = selector.find(className).outerHeight(true);
-		var requiredWidth = selector.width() - 1; /* scrollbar fix (for relative selector width) */
-		var requiredHeight = 0;
+		if (it.options.is_first_big) {
+			it.reverseItems();
+		}
+
+		$(it.element).append("<div class='jMosaic-clear'></div>");
+	};
+
+	jMosaic.prototype.clear = function () {
+		var it = this;
+		$(it.element).find(".jMosaic-item").each(function(i) { 
+			$(this)[0].className = $(this)[0].className.replace(/\bjMosaic-row_.*?\b/g, '');
+		});
+		$(it.element).find(".jMosaic-item").removeClass("jMosaic-item");
+		$(it.element).removeClass("jMosaic-selector");
+	};
+
+	jMosaic.prototype.stretchingRow = function (className, classWidth) {
+		var it = this;
+		var classHeight = $(it.element).find(className).outerHeight(true);
+		var requiredWidth = $(it.element).width() - 1; /* scrollbar fix (for relative selector width) */
+		var requiredHeight = classHeight / classWidth * requiredWidth;
 		var resultWidth = 0;
 		var lastElementWidth = 0;
 
-		requiredHeight = classHeight/classWidth * requiredWidth;
-		selector.find(className).each(function(indx) {
-			$(this).width(itemNewWidth($(this), (requiredHeight - margin*2)));
+		$(it.element).find(className).each(function(i) {
+			$(this).width(it.itemNewWidth(this, (requiredHeight - it.options.margin*2)));
 			resultWidth += $(this).outerWidth(true);
 		});
-		selector.find(className).height(requiredHeight - margin*2);
+		$(it.element).find(className).height(requiredHeight - it.options.margin*2);
 		
-		lastElementWidth = selector.find(className).last().outerWidth(true) + (requiredWidth - resultWidth) - margin*2;
-		selector.find(className).last().width(lastElementWidth);
-	}
-		
-	function itemNewWidth(item, newheight) {
-		var width = typeof(item.attr("width")) != 'undefined' ? item.attr("width") : item.width();
-		var height = typeof(item.attr("height")) != 'undefined' ? item.attr("height") : item.height();
+		lastElementWidth = $(it.element).find(className).last().outerWidth(true) + (requiredWidth - resultWidth) - it.options.margin*2;
+		$(it.element).find(className).last().width(lastElementWidth);
+	};
+
+	jMosaic.prototype.itemNewWidth = function (item, newheight) {
+		var width = typeof($(item).attr("width")) != 'undefined' ? $(item).attr("width") : $(item).width();
+		var height = typeof($(item).attr("height")) != 'undefined' ? $(item).attr("height") : $(item).height();
 		var prop = width / height;
-		var newwidth = newheight*prop;
+		var newwidth = newheight * prop;
 		return Math.round(newwidth);
-	}
-				
-	function reverseItems(selector, elems) {
-		var arr = $.makeArray(elems);
+	};
+
+	jMosaic.prototype.reverseItems = function () {
+		var it = this;
+		var arr = $.makeArray($(it.element).find(it.options.items_type));
 		arr.reverse();
-		$(selector).html(arr);
-	}
-		
-	function clear(selector) {
-		selector.find(".jMosaic-item").each(function(indx) { 
-			$(this)[0].className = $(this)[0].className.replace(/\bjMosaic-row_.*?\b/g, '');
+		$(it.element).html(arr);
+	};
+
+
+	jMosaic.prototype.init = function () {
+		switch (this.action) {
+			case "clear":
+				return this.clear();
+			break;
+			default:
+				return this.start();
+			break;
+		}
+	};
+
+
+	$.fn[pluginName] = function (options) {
+		return this.each(function () {
+			if (!$.data(this, 'plugin_' + pluginName) || typeof options === "string") {
+				$.data(this, 'plugin_' + pluginName, new jMosaic(this, options));
+			}
 		});
-		selector.find(".jMosaic-item").removeClass("jMosaic-item");
-		selector.removeClass("jMosaic-selector");
 	}
-	
-})(jQuery);
+
+
+})(jQuery, window, document);

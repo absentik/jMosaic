@@ -7,7 +7,7 @@
 
 	<title>jMosaic - jQuery plugin for align elements</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script src="js/jquery.jMosaic.js"></script>
+	<script src="js/jquery.jMosaic.min.js"></script>
 	<link rel="stylesheet" href="css/jquery.jMosaic.css"/>
 	
 	<style type="text/css">
@@ -15,7 +15,8 @@
 		a {color: #3366CC;}
 		.wrapper {width:900px; margin: 0 auto; font: normal normal 400 100%/1.5em georgia, serif; color: #222;}
 		.wrapper h1 {font: normal 600%/100% georgia, serif; text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); margin: 0 0 5px 0; text-align: center;}
-		.wrapper h2 {font: normal 200%/100% georgia, serif; text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); margin: 0 0 5px 0;}
+		.wrapper h2 {font: normal 200%/100% georgia, serif; text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); margin: 0 0 5px 0; text-transform: uppercase; }
+		.wrapper h3 {font: normal 150%/100% georgia, serif; text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); margin: 0 0 5px 0;}
 		.wrapper hr {border: none; border-top: 1px solid #ddd;}
 		.head p {font: normal 145%/1em georgia, serif; text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01); text-align: center;}
 		.buttons a {display: inline-block;  background: #ddd; color: #111; width: 39.5%; margin: 0 5%; border-radius: 3px; text-align: center; line-height: 2.6em; text-decoration: none;}
@@ -31,11 +32,12 @@
 		//For blocks or images of size, you can use $(document).ready
 		$(document).ready(function() {
 			$('.blocks').jMosaic({items_type: "li", margin: 0});
+			$('.pictures').jMosaic({min_row_height: 150, margin: 3, is_first_big: true});
 		});
 		
 		//If this image without attribute WIDTH or HEIGH, you can use $(window).load
 		$(window).load(function() {
-            $('.pictures').jMosaic({min_row_height: 150, margin: 3, is_first_big: true});
+            //$('.pictures').jMosaic({min_row_height: 150, margin: 3, is_first_big: true});
         });
 		
 		//You can update on $(window).resize
@@ -58,7 +60,7 @@
 		</div>
 		<br>
 		<h2>About</h2>
-		<p>The plugin is designed to display items as a mosaic. The proportions of the elements do not change. As elements include the following: img, div, li etc.</p>
+		<p>The plugin is designed to display items as a mosaic. <br>The proportions of the elements don't change. As the elements can be used: img, div, li etc.</p>
 		<br>
 		<h2>Usage</h2>
 		<p>jMosaic plugin uses the jQuery JavaScript library, only. So, include just these two javascript files in your header.</p>
@@ -72,7 +74,7 @@
 &lt;link rel="stylesheet" href="css/jquery.jMosaic.css"/&gt;
 		</pre>
 		<br>
-		<p>Select a block which contains the necessary elements.</p>
+		<p>Select a block which contains the necessary elements (<b>items_type</b>).</p>
 		<pre>
 &lt;div class="pictures"&gt;
 	&lt;img src="img/one.jpg" width="267" height="400"/&gt;
@@ -90,8 +92,8 @@ $('.pictures').jMosaic();
 		<p>For blocks or images of size, you can use <b>$(document).ready()</b>.</p>
 		<p>If this image without attribute "width" or "heigh", you can use <b>$(window).load()</b>.</p>
 		<p>You can update on <b>$(window).resize()</b>.</p>
-		
-		<p>As options can be passed:</p>
+		<br>
+		<h3>Options:</h3>
 		<ul>
 			<li><b>items_type</b> : Type of elements in the selector <i>(Default: img)</i>;</li>
 			<li><b>min_row_height</b> : Minimal row height <i>(Default: 150)</i>;</li>
@@ -99,17 +101,28 @@ $('.pictures').jMosaic();
 			<li><b>is_first_big</b> : First row - largest <i>(Default: false)</i>.</li>
 		</ul>
 		<pre>
-$('.pictures').jMosaic({items_type: "img", min_row_height: 200, margin: 3, is_first_big: true});
+$('.blocks').jMosaic({
+  items_type: "li", 
+  min_row_height: 200, 
+  margin: 3, 
+  is_first_big: true
+});
 		</pre>
 		<br>
-		<p>If you want to clean up, use the:</p>
+		<br>
+		<h3>Methods:</h3>
+		<ul>
+			<li><b>clear : Clean up the selector from the plugin;</b></li>
+		</ul>
 		<pre>
 $('.pictures').jMosaic('clear');
 		</pre>
 		<br>
 		<br>
-		<h2>Example (pictures & fixed width):</h2>
-		<div class="pictures" >
+		<h2 id="example">Example</h2>
+		<br>
+		<h3>1. Pictures & fixed width:</h3>
+		<div class="pictures">
 			<img src="img/pics-001.jpg" width="700" height="446"/>
 			<img src="img/pics-002.jpg" width="700" height="448"/>
 			<img src="img/pics-003.jpg" width="640" height="896"/>
@@ -125,7 +138,7 @@ $('.pictures').jMosaic('clear');
 			<img src="img/pics-013.jpg" width="670" height="503"/>
 		</div>
 		<br>
-		<h2>Example (blocks & relative width):</h2>
+		<h3>2. Blocks & relative width:</h3>
 		<ul class="blocks">
 			<li style="width: 250px; height: 400px; background: #ff0000; list-style: none;"></li>
 			<li style="width: 250px; height: 200px; background: #ffff00; list-style: none;"></li>
@@ -137,8 +150,9 @@ $('.pictures').jMosaic('clear');
 			<li style="width: 350px; height: 350px; background: #bb1100; list-style: none;"></li>
 			<li style="width: 250px; height: 400px; background: #ff0000; list-style: none;"></li>
 		</ul>
+		<br>
 		<hr>
-		<p><a href="http://whoisabsent.ru" title="Created by" target="_blank">ABSENT</a>, 2013</p>
+		<p><a href="http://whoisabsent.ru" title="Created by" target="_blank">ABSENT</a>, 2014</p>
 	</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 /*
- * jQuery jMosaic plugin 0.0.7 
+ * jQuery jMosaic plugin 0.1.0 
+ * https://github.com/absentik/jMosaic
  * 
  * Author: Seleznev Alexander (ABSENT) 
  * Email: absenteg@gmail.com 
@@ -9,6 +10,7 @@
  * http://www.opensource.org/licenses/mit-license.php 
  */
 
+.jMosaic-clear { clear: both; }
 .jMosaic-selector { clear: both; position: relative; }
 .jMosaic-selector > .jMosaic-item { display: block; float: left; position: relative; overflow: hidden; width: auto; z-index: 10; }
 .jMosaic-selector > .jMosaic-item:hover, .jMosaic-selector > .jMosaic-item:focus { z-index: 20; }
