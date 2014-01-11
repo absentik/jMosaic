@@ -1,5 +1,5 @@
 /*
- * jQuery jMosaic plugin 0.1.0 
+ * jQuery jMosaic plugin 0.1.1 
  * https://github.com/absentik/jMosaic
  * 
  * Author: Seleznev Alexander (ABSENT) 
@@ -30,11 +30,13 @@
 		this.init();
 	}
 
-	jMosaic.prototype.start = function () {
+	jMosaic.prototype.start = function() {
 		var it = this;
-		var numRow = 1;
+		var numRow = 0;
 		var classWidth = 0;
 		var selectorLength = $(it.element).find(it.options.items_type).length;
+
+		this.clear();
 		
 		if (it.options.is_first_big) {
 			it.reverseItems();
@@ -45,7 +47,7 @@
 		$(it.element).find(it.options.items_type).each(function(i) { 
 			$(this).addClass("jMosaic-item");
 			var newwidth = 	it.itemNewWidth(this, it.options.min_row_height);
-			$(this).removeAttr("width").removeAttr("height").css({"width": newwidth+"px", "height": it.options.min_row_height+"px", "margin": it.options.margin+"px"});		
+			$(this).css({"width": newwidth+"px", "height": it.options.min_row_height+"px", "margin": it.options.margin+"px"});		
 			if (i == 0 || $(this).position().top == $(this).prev().position().top) {
 				classWidth += $(this).outerWidth(true);
 			}
@@ -67,16 +69,17 @@
 		$(it.element).append("<div class='jMosaic-clear'></div>");
 	};
 
-	jMosaic.prototype.clear = function () {
+	jMosaic.prototype.clear = function() {
 		var it = this;
 		$(it.element).find(".jMosaic-item").each(function(i) { 
 			$(this)[0].className = $(this)[0].className.replace(/\bjMosaic-row_.*?\b/g, '');
 		});
 		$(it.element).find(".jMosaic-item").removeClass("jMosaic-item");
+		$(it.element).find(".jMosaic-clear").remove();
 		$(it.element).removeClass("jMosaic-selector");
 	};
 
-	jMosaic.prototype.stretchingRow = function (className, classWidth) {
+	jMosaic.prototype.stretchingRow = function(className, classWidth) {
 		var it = this;
 		var classHeight = $(it.element).find(className).outerHeight(true);
 		var requiredWidth = $(it.element).width() - 1; /* scrollbar fix (for relative selector width) */
@@ -94,15 +97,15 @@
 		$(it.element).find(className).last().width(lastElementWidth);
 	};
 
-	jMosaic.prototype.itemNewWidth = function (item, newheight) {
-		var width = typeof($(item).attr("width")) != 'undefined' ? $(item).attr("width") : $(item).width();
-		var height = typeof($(item).attr("height")) != 'undefined' ? $(item).attr("height") : $(item).height();
+	jMosaic.prototype.itemNewWidth = function(item, newheight) {
+		var width = $(item).width();
+		var height = $(item).height();
 		var prop = width / height;
 		var newwidth = newheight * prop;
 		return Math.round(newwidth);
 	};
 
-	jMosaic.prototype.reverseItems = function () {
+	jMosaic.prototype.reverseItems = function() {
 		var it = this;
 		var arr = $.makeArray($(it.element).find(it.options.items_type));
 		arr.reverse();
@@ -110,7 +113,7 @@
 	};
 
 
-	jMosaic.prototype.init = function () {
+	jMosaic.prototype.init = function() {
 		switch (this.action) {
 			case "clear":
 				return this.clear();
@@ -122,11 +125,9 @@
 	};
 
 
-	$.fn[pluginName] = function (options) {
+	$.fn[pluginName] = function(options) {
 		return this.each(function () {
-			if (!$.data(this, 'plugin_' + pluginName) || typeof options === "string") {
-				$.data(this, 'plugin_' + pluginName, new jMosaic(this, options));
-			}
+			$.data(this, 'plugin_' + pluginName, new jMosaic(this, options));
 		});
 	}
 
