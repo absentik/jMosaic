@@ -48,10 +48,10 @@ You can update on `$(window).resize()`.
 
 ### Options:
 You can pass an options object in plugin init method.
-* `items_type` : Type of elements in the selector (Default: img);
-* `min_row_height` : Minimal row height (Default: 150);
-* `margin` : Space between elements (Default: 0);
-* `is_first_big` : First row - largest (Default: false);
+* `items_type` : Type of elements in the selector (Default: `img`);
+* `min_row_height` : Minimal row height (Default: `150`);
+* `margin` : Space between elements (Default: `0`);
+* `is_first_big` : First row - largest (Default: `false`);
 
 <pre>
 $('.blocks').jMosaic({
