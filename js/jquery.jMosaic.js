@@ -1,5 +1,5 @@
 /*
- * jQuery jMosaic plugin 0.1.1 
+ * jQuery jMosaic plugin 0.1.2 
  * https://github.com/absentik/jMosaic
  * 
  * Author: Seleznev Alexander (ABSENT) 
@@ -47,7 +47,7 @@
 		$(it.element).find(it.options.items_type).each(function(i) { 
 			$(this).addClass("jMosaic-item");
 			var newwidth = 	it.itemNewWidth(this, it.options.min_row_height);
-			$(this).css({"width": newwidth+"px", "height": it.options.min_row_height+"px", "margin": it.options.margin+"px"});		
+			$(this).removeAttr("width").removeAttr("height").css({"width": newwidth+"px", "height": it.options.min_row_height+"px", "margin": it.options.margin+"px"});		
 			if (i == 0 || $(this).position().top == $(this).prev().position().top) {
 				classWidth += $(this).outerWidth(true);
 			}
@@ -98,8 +98,8 @@
 	};
 
 	jMosaic.prototype.itemNewWidth = function(item, newheight) {
-		var width = $(item).width();
-		var height = $(item).height();
+		var width = typeof($(item).attr("width")) != 'undefined' ? $(item).attr("width") : $(item).width();
+		var height = typeof($(item).attr("height")) != 'undefined' ? $(item).attr("height") : $(item).height();
 		var prop = width / height;
 		var newwidth = newheight * prop;
 		return Math.round(newwidth);
