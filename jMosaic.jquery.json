@@ -1,7 +1,7 @@
 {
     "name": "jMosaic",
     "title": "jQuery jMosaic",
-    "description": "jQuery plugin for align elements as a mosaic.",
+    "description": "A lightweight jQuery plugin that can take a list of page elements and arrange them in a beautiful, tight-fitted tile mosaic grid.",
     "keywords": [
         "mosaic",
         "jMosaic",
@@ -14,7 +14,7 @@
         "effect",
         "gallery"
     ],
-    "version": "0.1.2",
+    "version": "0.1.3",
     "author": {
         "name": "Seleznev Alexander",
         "email": "absenteg@gmail.com",

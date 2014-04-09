@@ -1,5 +1,5 @@
 /*
- * jQuery jMosaic plugin 0.1.2 
+ * jQuery jMosaic plugin 0.1.3 
  * https://github.com/absentik/jMosaic
  * 
  * Author: Seleznev Alexander (ABSENT) 

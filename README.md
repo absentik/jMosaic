@@ -2,7 +2,7 @@ jMosaic
 =======
 
 ## ABOUT
-The plugin is designed to display items as a mosaic. 
+A lightweight jQuery plugin that can take a list of page elements and arrange them in a beautiful, tight-fitted tile mosaic grid. 
 
 The proportions of the elements don't change. As the elements can be used: img, div, li etc.
 ![Demo](http://u.pikucha.ru/iafnK/345.jpeg)
