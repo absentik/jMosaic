@@ -5,7 +5,7 @@ jMosaic
 A lightweight jQuery plugin that can take a list of page elements and arrange them in a beautiful, tight-fitted tile mosaic grid. 
 
 The proportions of the elements don't change. As the elements can be used: img, div, li etc.
-![Demo](http://u.pikucha.ru/iafnK/345.jpeg)
+![Demo](https://habrastorage.org/files/dbf/66f/c65/dbf66fc656424b4e8ada168a175612da.png)
 
 
 ## USAGE
